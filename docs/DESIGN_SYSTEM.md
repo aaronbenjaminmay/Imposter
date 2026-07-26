@@ -116,7 +116,7 @@ Status reflects what's actually built, not aspirational.
 | Number Chip | Default, Selected | Player-count selector | `components/NumberChip.tsx` | ✅ |
 | Player Chip | — | Removable name pill on player-names screen | `components/PlayerChip.tsx` | ✅ |
 | Screen Header | — | Title + supporting text, reused across screens | `components/ScreenHeader.tsx` | TODO |
-| Pass Phone Prompt | — | The privacy-gate screen body | `components/PassPhonePrompt.tsx` | TODO |
+| Pass Phone Prompt | — | The privacy-gate screen body | Not separately instantiated — the actual `pass-phone`/`vote-pass-phone` screens use their own composition (`screens/PassPhone.tsx`), not this component | N/A |
 | Status Bar / Home Indicator | — | Phone-chrome decoration only, not product logic | Skip — not a real product component | N/A |
 
 Props/variants should map to a discriminated union or string-literal
@@ -145,11 +145,11 @@ rule. Extracted once actual repetition was confirmed, not speculatively.
 | `how-to-play` | SETUP | `screens/HowToPlay.tsx` ✅ |
 | `player-count` | SETUP | `screens/PlayerCount.tsx` ✅ |
 | `player-names` | SETUP | `screens/PlayerNames.tsx` ✅ |
-| `pass-phone` | ROLE REVEAL | `screens/PassPhone.tsx` (shared with voting, see below) |
-| `tap-to-reveal` | ROLE REVEAL | `screens/TapToReveal.tsx` |
-| `word-reveal-normal` | ROLE REVEAL | `screens/WordReveal.tsx` |
-| `imposter-reveal` | ROLE REVEAL | `screens/ImposterReveal.tsx` |
-| `everyone-ready` | ROLE REVEAL | `screens/EveryoneReady.tsx` |
+| `pass-phone` | ROLE REVEAL | `screens/PassPhone.tsx` ✅ (shared with voting, see below) |
+| `tap-to-reveal` | ROLE REVEAL | `screens/TapToReveal.tsx` ✅ |
+| `word-reveal-normal` | ROLE REVEAL | `screens/WordReveal.tsx` ✅ |
+| `imposter-reveal` | ROLE REVEAL | `screens/ImposterReveal.tsx` ✅ |
+| `everyone-ready` | ROLE REVEAL | `screens/EveryoneReady.tsx` ✅ |
 | `clue-phase` | GAMEPLAY | `screens/CluePhase.tsx` |
 | `ready-to-vote` | GAMEPLAY | `screens/ReadyToVote.tsx` |
 | `vote-pass-phone` | VOTING | reuses `PassPhone.tsx` |
@@ -162,10 +162,22 @@ rule. Extracted once actual repetition was confirmed, not speculatively.
 
 `pass-phone` and `vote-pass-phone` are visually and behaviorally the
 same component (per the AI Implementation Guide's "Pass Phone Screen"
-doc) — TODO: confirm during implementation whether one shared
-`PassPhone` screen parameterized by "what happens next" fully covers
-both Figma frames, or whether they've diverged enough to need to stay
-separate.
+doc) — **resolved**: one shared `PassPhone.tsx` covers both, taking an
+optional `subtitle` prop for voting's extra "Make your vote privately."
+line, which is the only difference between the two Figma frames.
+
+**Assumption — tap-to-reveal's giant circle**: the circle element
+(#2:185) had no children in the captured fetch. Implemented as a
+decorative glow only, not a second tap target — "Reveal My Role" is the
+guide's documented primary action, and nothing confirmed the circle
+duplicates it. Re-check if Figma access shows otherwise.
+
+**Convention — uppercase display text**: several screens author their
+dramatic text content in literal caps in Figma ("YOUR WORD IS", "YOU ARE
+THE"). Implemented as natural-case JSX + `text-transform: uppercase` in
+CSS instead of hardcoding caps strings, consistent with how Home's/
+PassPhone's Overline style already works — keeps the data presentation-
+independent.
 
 ## Game flow
 
