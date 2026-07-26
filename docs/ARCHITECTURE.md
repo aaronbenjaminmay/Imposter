@@ -88,3 +88,16 @@ you shouldn't be able to hit "back" past a pass-phone privacy gate).
 No test framework is wired up yet — there's no application logic to test
 until screens/game rules are implemented. When tests are added, the CI
 workflow's "run tests" step should be un-skipped rather than added fresh.
+
+## Home screen install
+
+The app is installable to a phone's home screen (iOS "Add to Home
+Screen", Android/Chrome's install prompt), launching in standalone mode
+(no browser chrome) via `public/manifest.webmanifest` plus the
+`apple-*`/`mobile-web-app-*` meta tags in `index.html`. This is a
+product decision (not from Figma) — the icon set
+(`favicon.svg`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`)
+is all one design: the fingerprint asset on the app's dark canvas color
+with the red accent ring, matching the in-app tap-to-reveal screen.
+There's no service worker and no offline caching — installability only,
+nothing beyond what "add to home screen" needs.
