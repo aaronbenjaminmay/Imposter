@@ -64,11 +64,14 @@ change independently.
 
 ## State management
 
-No external state library. The full game fits in one `GameState` object
-(`src/types/game.ts`) held in `App.tsx` and passed down as props. This is
-intentionally simple: a single local device, a linear/looping flow, no
-concurrent writers. Reach for something heavier only if this genuinely
-stops working, not preemptively.
+No external state library. `App.tsx` holds one `useReducer` (state shape
+and action handling in `src/game/gameReducer.ts`), passing state and
+dispatched callbacks down as props. Started as plain `useState` calls
+directly in `App.tsx` during early screens; consolidated into a reducer
+once the state genuinely got complex enough to need it (turn indices for
+the role-reveal/clue/voting loops, vote tally, round outcome) — not
+introduced preemptively. Reach for something heavier than this only if a
+reducer genuinely stops being enough.
 
 ## Routing
 

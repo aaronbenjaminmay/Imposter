@@ -1,0 +1,54 @@
+.topSection {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-component-lg);
+  padding-top: var(--space-component-md);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-section-md);
+  padding-inline: var(--space-page-gutter);
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-component-sm);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--text-heading-xs-size);
+  font-weight: var(--text-heading-xs-weight);
+  line-height: var(--text-heading-xs-line-height);
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-body-sm-weight);
+  line-height: var(--text-body-sm-line-height);
+  color: var(--color-text-secondary);
+}
+
+.voteOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-component-sm);
+}
+
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0 var(--space-page-gutter) var(--space-section-lg);
+}

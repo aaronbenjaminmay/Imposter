@@ -1,0 +1,53 @@
+.topSection {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-component-xl);
+  padding-top: var(--space-component-md);
+}
+
+.headerArea {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-component-sm);
+  padding-inline: var(--space-page-gutter);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--text-heading-sm-size);
+  font-weight: var(--text-heading-sm-weight);
+  line-height: var(--text-heading-sm-line-height);
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--text-nav-title-size);
+  font-weight: var(--text-nav-title-weight);
+  line-height: var(--text-nav-title-line-height);
+  color: var(--color-action-primary);
+}
+
+.prompt {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-body-sm-weight);
+  line-height: var(--text-body-sm-line-height);
+  color: var(--color-text-secondary);
+}
+
+.inputArea {
+  padding-inline: var(--space-page-gutter);
+}
+
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0 var(--space-page-gutter) var(--space-section-lg);
+}

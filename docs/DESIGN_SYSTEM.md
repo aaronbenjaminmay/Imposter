@@ -111,8 +111,8 @@ Status reflects what's actually built, not aspirational.
 |---|---|---|---|---|
 | Button | Primary, Secondary | Dominant CTA vs. supporting action | `components/Button.tsx` | ✅ |
 | Text Input | Default, Focused, Filled | Player name entry, Imposter's word guess | `components/TextInput.tsx` | ✅ |
-| Player Row | Default, Current, Completed, Pending | Clue-phase turn tracker | `components/PlayerRow.tsx` | TODO |
-| Vote Option | Default, Selected | Private vote selection (radio) | `components/VoteOption.tsx` | TODO |
+| Player Row | Default, Current, Completed, Pending | Clue-phase turn tracker | `components/PlayerRow.tsx` | ✅ |
+| Vote Option | Default, Selected | Private vote selection (radio) | `components/VoteOption.tsx` | ✅ |
 | Number Chip | Default, Selected | Player-count selector | `components/NumberChip.tsx` | ✅ |
 | Player Chip | — | Removable name pill on player-names screen | `components/PlayerChip.tsx` | ✅ |
 | Screen Header | — | Title + supporting text, reused across screens | `components/ScreenHeader.tsx` | TODO |
@@ -150,15 +150,15 @@ rule. Extracted once actual repetition was confirmed, not speculatively.
 | `word-reveal-normal` | ROLE REVEAL | `screens/WordReveal.tsx` ✅ |
 | `imposter-reveal` | ROLE REVEAL | `screens/ImposterReveal.tsx` ✅ |
 | `everyone-ready` | ROLE REVEAL | `screens/EveryoneReady.tsx` ✅ |
-| `clue-phase` | GAMEPLAY | `screens/CluePhase.tsx` |
-| `ready-to-vote` | GAMEPLAY | `screens/ReadyToVote.tsx` |
-| `vote-pass-phone` | VOTING | reuses `PassPhone.tsx` |
-| `vote-selection` | VOTING | `screens/VoteSelection.tsx` |
-| `vote-locked` | VOTING | `screens/VoteLocked.tsx` |
-| `votes-are-in` | VOTING | `screens/VotesAreIn.tsx` |
-| `vote-reveal` | RESULTS | `screens/VoteReveal.tsx` |
-| `imposter-guess` | RESULTS | `screens/ImposterGuess.tsx` |
-| `final-result` | RESULTS | `screens/FinalResult.tsx` |
+| `clue-phase` | GAMEPLAY | `screens/CluePhase.tsx` ✅ |
+| `ready-to-vote` | GAMEPLAY | `screens/ReadyToVote.tsx` ✅ |
+| `vote-pass-phone` | VOTING | reuses `PassPhone.tsx` ✅ |
+| `vote-selection` | VOTING | `screens/VoteSelection.tsx` ✅ |
+| `vote-locked` | VOTING | `screens/VoteLocked.tsx` ✅ |
+| `votes-are-in` | VOTING | `screens/VotesAreIn.tsx` ✅ |
+| `vote-reveal` | RESULTS | `screens/VoteReveal.tsx` ✅ |
+| `imposter-guess` | RESULTS | `screens/ImposterGuess.tsx` ✅ |
+| `final-result` | RESULTS | `screens/FinalResult.tsx` ✅ |
 
 `pass-phone` and `vote-pass-phone` are visually and behaviorally the
 same component (per the AI Implementation Guide's "Pass Phone Screen"
@@ -178,6 +178,30 @@ THE"). Implemented as natural-case JSX + `text-transform: uppercase` in
 CSS instead of hardcoding caps strings, consistent with how Home's/
 PassPhone's Overline style already works — keeps the data presentation-
 independent.
+
+**Caveat — several screens built after the Figma rate limit hit**: clue-phase
+through final-result were built from the earlier full Core Flow fetch plus
+the AI Implementation Guide, without being able to re-verify a few specific
+details live. All confirmed working correctly in end-to-end browser testing
+(3-player and 4-player games, including a forced 2-2 tie), but these
+specific pieces are inferred, not captured, and worth re-checking against
+Figma once available:
+
+- **clue-phase's "turn-indicator" frame** (#2:422): no children captured.
+  Implemented as an overline + name callout ("CURRENT TURN" / player name).
+- **vote-locked's icon** (#2:531/#2:532): no children captured. Used "✓"
+  matching PlayerRow's completed-state treatment.
+- **vote-selection's title-area copy** (#2:492): not captured. Used "Who's
+  the Imposter?" / "Select one player."
+- **imposter-guess's Text Input copy**: not captured. Used label "Your
+  guess", placeholder "Type your guess...".
+- **final-result's summary-grid content** (#2:624): not captured. Built
+  from the guide's explicit content list (Imposter name, secret word, vote
+  breakdown, final guess) rather than Figma's actual row layout.
+- **vote-reveal's tie state**: Figma's "State: Tie Vote" mock (on the
+  confirmed-duplicative "03 — States" canvas) wasn't separately fetched.
+  Implemented by reusing VoteReveal's own container with tie-specific copy
+  and a "Vote Again" action instead of "Continue".
 
 ## Game flow
 

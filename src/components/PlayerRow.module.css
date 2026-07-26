@@ -1,0 +1,77 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-component-md);
+  padding: var(--space-component-lg);
+  border-radius: var(--radius-card);
+}
+
+.pending {
+  opacity: 0.4;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: var(--text-body-sm-size);
+}
+
+.badgeDefault {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.badgeCurrent {
+  background: var(--color-action-primary);
+  color: var(--color-text-on-action);
+  font-size: var(--text-caption-size);
+}
+
+.badgeCompleted {
+  background: rgba(34, 197, 94, 0.13);
+  color: var(--color-feedback-success);
+  font-size: var(--text-label-sm-size);
+}
+
+.badgePending {
+  background: transparent;
+  color: var(--color-text-tertiary);
+}
+
+.name {
+  font-family: var(--font-family-body);
+}
+
+.nameDefault {
+  font-size: var(--text-label-md-size);
+  font-weight: var(--text-label-md-weight);
+  line-height: var(--text-label-md-line-height);
+  color: var(--color-text-primary);
+}
+
+.nameCurrent {
+  font-family: var(--font-family-display);
+  font-size: var(--text-label-lg-size);
+  font-weight: var(--text-label-lg-weight);
+  line-height: var(--text-label-lg-line-height);
+  color: var(--color-text-primary);
+}
+
+.nameCompleted {
+  font-size: var(--text-label-md-size);
+  font-weight: var(--text-label-md-weight);
+  line-height: var(--text-label-md-line-height);
+  color: var(--color-text-secondary);
+}
+
+.namePending {
+  font-size: var(--text-label-md-size);
+  font-weight: var(--text-label-md-weight);
+  line-height: var(--text-label-md-line-height);
+  color: var(--color-text-tertiary);
+}
