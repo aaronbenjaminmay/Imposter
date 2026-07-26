@@ -20,16 +20,12 @@ type FinalResultProps = {
  * Reveals the word to everyone and declares the winner — the only
  * screen where players other than the Imposter's reveal see the word.
  *
- * Assumption: the summary-grid's exact row content (#2:624) wasn't
- * captured before the Figma rate limit hit. Built from the AI
- * Implementation Guide's explicit content list instead ("Imposter name,
- * secret word, vote breakdown, final guess result") — re-check the
- * actual row layout against Figma once available.
- *
- * Both "Play Again" and "New Game" render as Primary buttons, matching
- * the one captured example (not Primary+Secondary as the guide's
- * component doc describes) — see the discrepancy already logged in
- * docs/DESIGN_SYSTEM.md.
+ * Summary card layout confirmed against the live Figma file (project
+ * owner screenshot): "Imposter" and "Secret Word" as label/value rows,
+ * a divider, then a "Vote Breakdown" section tallying votes per
+ * candidate ("Sam (Imposter) — 4 votes"), not a per-voter list. No
+ * guess row in this design — dropped from an earlier assumption-based
+ * version.
  */
 export function FinalResult({
   players,
@@ -44,6 +40,14 @@ export function FinalResult({
   const imposter = players.find((p) => p.id === imposterId);
   const playersWin = roundResult.outcome === 'players-win';
 
+  const voteCounts = new Map<string, number>();
+  for (const vote of votes) {
+    voteCounts.set(vote.votedForId, (voteCounts.get(vote.votedForId) ?? 0) + 1);
+  }
+  const voteBreakdown = [...voteCounts.entries()]
+    .map(([playerId, count]) => ({ player: players.find((p) => p.id === playerId), count }))
+    .sort((a, b) => b.count - a.count);
+
   return (
     <ScreenShell>
       <div className={styles.topSection}>
@@ -57,27 +61,28 @@ export function FinalResult({
           <p className={styles.summaryTitle}>Game Summary</p>
           <div className={styles.summaryGrid}>
             <div className={styles.summaryRow}>
-              <p className={styles.summaryLabel}>Imposter</p>
-              <p className={styles.summaryValue}>{imposter?.name}</p>
+              <span className={styles.summaryLabel}>Imposter</span>
+              <span className={styles.summaryValue}>{imposter?.name}</span>
             </div>
             <div className={styles.summaryRow}>
-              <p className={styles.summaryLabel}>Votes</p>
-              {votes.map((vote) => {
-                const voter = players.find((p) => p.id === vote.voterId);
-                const votedFor = players.find((p) => p.id === vote.votedForId);
-                return (
-                  <p key={vote.voterId} className={styles.summaryValue}>
-                    {voter?.name} voted {votedFor?.name}
-                  </p>
-                );
-              })}
+              <span className={styles.summaryLabel}>Secret Word</span>
+              <span className={`${styles.summaryValue} ${styles.uppercase}`}>{secretWord}</span>
             </div>
-            {roundResult.wasImposterCaught && roundResult.imposterGuess && (
-              <div className={styles.summaryRow}>
-                <p className={styles.summaryLabel}>{imposter?.name}&apos;s guess</p>
-                <p className={styles.summaryValue}>{roundResult.imposterGuess}</p>
+          </div>
+          <hr className={styles.divider} />
+          <div className={styles.summaryGrid}>
+            <p className={styles.sectionHeading}>Vote Breakdown</p>
+            {voteBreakdown.map(({ player, count }) => (
+              <div key={player?.id} className={styles.summaryRow}>
+                <span className={styles.summaryLabel}>
+                  {player?.name}
+                  {player?.id === imposterId && ' (Imposter)'}
+                </span>
+                <span className={styles.summaryValue}>
+                  {count} {count === 1 ? 'vote' : 'votes'}
+                </span>
               </div>
-            )}
+            ))}
           </div>
         </div>
       </div>

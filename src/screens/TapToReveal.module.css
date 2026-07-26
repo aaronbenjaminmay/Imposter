@@ -42,12 +42,16 @@
 }
 
 .giantCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 180px;
   height: 180px;
   border-radius: 50%;
   background: var(--color-background-primary);
   border: 2px solid var(--color-action-primary);
   box-shadow: 0 0 30px 0 rgba(255, 59, 48, 0.13);
+  color: var(--color-action-primary);
 }
 
 .bottomSection {

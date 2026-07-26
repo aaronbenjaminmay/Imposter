@@ -167,10 +167,13 @@ optional `subtitle` prop for voting's extra "Make your vote privately."
 line, which is the only difference between the two Figma frames.
 
 **Assumption — tap-to-reveal's giant circle**: the circle element
-(#2:185) had no children in the captured fetch. Implemented as a
-decorative glow only, not a second tap target — "Reveal My Role" is the
-guide's documented primary action, and nothing confirmed the circle
-duplicates it. Re-check if Figma access shows otherwise.
+(#2:185) had no children in the captured fetch. Confirmed via project
+owner screenshot that it holds a fingerprint/scan icon — still
+decorative, not a second tap target ("Reveal My Role" remains the only
+actionable control). Implemented as a hand-built stroke icon (simple
+nested arcs), not an exact vector match, since the real Figma asset
+isn't reachable while the REST API is rate-limited. Re-check against the
+actual icon (or export it directly) once API access is available.
 
 **Convention — uppercase display text**: several screens author their
 dramatic text content in literal caps in Figma ("YOUR WORD IS", "YOU ARE
@@ -195,9 +198,13 @@ Figma once available:
   the Imposter?" / "Select one player."
 - **imposter-guess's Text Input copy**: not captured. Used label "Your
   guess", placeholder "Type your guess...".
-- **final-result's summary-grid content** (#2:624): not captured. Built
-  from the guide's explicit content list (Imposter name, secret word, vote
-  breakdown, final guess) rather than Figma's actual row layout.
+- **final-result's summary-grid content** (#2:624): ~~not captured~~
+  **resolved** — confirmed against a project-owner screenshot of the live
+  Figma file. Actual layout: "Imposter" and "Secret Word" as label/value
+  rows (side-by-side, not stacked), a divider, then a "Vote Breakdown"
+  section tallying votes per candidate ("Sam (Imposter) — 4 votes"), not
+  a per-voter list. No guess row — the earlier guide-derived assumption
+  including one was wrong and has been removed.
 - **vote-reveal's tie state**: Figma's "State: Tie Vote" mock (on the
   confirmed-duplicative "03 — States" canvas) wasn't separately fetched.
   Implemented by reusing VoteReveal's own container with tie-specific copy
