@@ -110,10 +110,10 @@ Status reflects what's actually built, not aspirational.
 | Figma component | Variants / states | Purpose | Code component | Status |
 |---|---|---|---|---|
 | Button | Primary, Secondary | Dominant CTA vs. supporting action | `components/Button.tsx` | ✅ |
-| Text Input | Default, Focused, Filled | Player name entry, Imposter's word guess | `components/TextInput.tsx` | TODO |
+| Text Input | Default, Focused, Filled | Player name entry, Imposter's word guess | `components/TextInput.tsx` | ✅ |
 | Player Row | Default, Current, Completed, Pending | Clue-phase turn tracker | `components/PlayerRow.tsx` | TODO |
 | Vote Option | Default, Selected | Private vote selection (radio) | `components/VoteOption.tsx` | TODO |
-| Number Chip | Default, Selected | Player-count selector | `components/NumberChip.tsx` | TODO |
+| Number Chip | Default, Selected | Player-count selector | `components/NumberChip.tsx` | ✅ |
 | Player Chip | — | Removable name pill on player-names screen | `components/PlayerChip.tsx` | TODO |
 | Screen Header | — | Title + supporting text, reused across screens | `components/ScreenHeader.tsx` | TODO |
 | Pass Phone Prompt | — | The privacy-gate screen body | `components/PassPhonePrompt.tsx` | TODO |
@@ -143,7 +143,7 @@ rule. Extracted once actual repetition was confirmed, not speculatively.
 |---|---|---|
 | `home` | SETUP | `screens/Home.tsx` ✅ |
 | `how-to-play` | SETUP | `screens/HowToPlay.tsx` ✅ |
-| `player-count` | SETUP | `screens/PlayerCount.tsx` |
+| `player-count` | SETUP | `screens/PlayerCount.tsx` ✅ |
 | `player-names` | SETUP | `screens/PlayerNames.tsx` |
 | `pass-phone` | ROLE REVEAL | `screens/PassPhone.tsx` (shared with voting, see below) |
 | `tap-to-reveal` | ROLE REVEAL | `screens/TapToReveal.tsx` |
@@ -190,6 +190,15 @@ comes up again, not just Home.
 (4/8/12/16/24/32). Rounded up to `--space-component-xl` (24px) rather
 than hardcoding `20px`, per the "no arbitrary spacing values" rule —
 even though the arbitrary value originates in Figma itself here.
+
+**Addition — custom player count input**: Figma's `player-count` mockup
+only shows chips up to "10+", with no UI for entering an exact number
+above 10. Since the game has no upper cap on players (project owner
+call — "10+" means "10 or more," not "exactly 10"), we need an actual
+count to know how many name fields to collect on `player-names`. Added
+a `TextInput` below the chip grid, shown only when "10+" is selected,
+asking for the exact count (min 10). This is our own addition, not a
+Figma mapping — flag if a future Figma update adds a real mock for it.
 
 ## Not yet mapped
 
