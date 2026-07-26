@@ -83,6 +83,11 @@
   color: var(--color-text-secondary);
 }
 
+.categoryEmoji {
+  font-size: var(--text-body-lg-size);
+  vertical-align: middle;
+}
+
 .categoryValue {
   font-weight: var(--text-label-sm-weight);
   color: var(--color-text-primary);

@@ -26,6 +26,12 @@
   color: var(--color-text-secondary);
 }
 
+.emoji {
+  margin: 0;
+  line-height: 1;
+  font-size: var(--text-heading-xl-size);
+}
+
 .word {
   margin: 0;
   /* Figma's example word ("PIZZA") is one word — the actual word bank

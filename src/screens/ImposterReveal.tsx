@@ -4,6 +4,7 @@ import styles from './ImposterReveal.module.css';
 
 type ImposterRevealProps = {
   category: string;
+  categoryEmoji: string;
   onHideAndPass: () => void;
 };
 
@@ -17,9 +18,10 @@ type ImposterRevealProps = {
  * Category hint: a project-owner-requested addition, not from Figma.
  * Gives the Imposter a narrowed clue (e.g. "Food") without revealing the
  * word, so they have a fighting chance to blend in. See docs/GAME_RULES.md
- * "Imposter privacy".
+ * "Imposter privacy". The category emoji ("Picture Mode") is real content
+ * here too, not decoration — not aria-hidden.
  */
-export function ImposterReveal({ category, onHideAndPass }: ImposterRevealProps) {
+export function ImposterReveal({ category, categoryEmoji, onHideAndPass }: ImposterRevealProps) {
   return (
     <ScreenShell>
       <div className={styles.topSection}>
@@ -32,7 +34,8 @@ export function ImposterReveal({ category, onHideAndPass }: ImposterRevealProps)
               {"You don't know the secret word.\nListen carefully to everyone's clues\nand try to blend in."}
             </p>
             <p className={styles.categoryHint}>
-              Category hint: <span className={styles.categoryValue}>{category}</span>
+              <span className={styles.categoryEmoji}>{categoryEmoji}</span> Category hint:{' '}
+              <span className={styles.categoryValue}>{category}</span>
             </p>
           </div>
         </div>

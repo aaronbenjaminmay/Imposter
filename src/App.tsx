@@ -75,17 +75,24 @@ function App() {
       );
 
     case 'imposter-reveal':
-      // secretWordCategory is always set by START_ROUND before this screen is reachable.
+      // secretWordCategory/-Emoji are always set by START_ROUND before this screen is reachable.
       return (
         <ImposterReveal
           category={state.secretWordCategory!}
+          categoryEmoji={state.secretWordCategoryEmoji!}
           onHideAndPass={() => dispatch({ type: 'HIDE_AND_PASS' })}
         />
       );
 
     case 'word-reveal-normal':
-      // secretWord is always set by START_ROUND before this screen is reachable.
-      return <WordReveal word={state.secretWord!} onHideAndPass={() => dispatch({ type: 'HIDE_AND_PASS' })} />;
+      // secretWord/-Emoji are always set by START_ROUND before this screen is reachable.
+      return (
+        <WordReveal
+          word={state.secretWord!}
+          emoji={state.secretWordEmoji!}
+          onHideAndPass={() => dispatch({ type: 'HIDE_AND_PASS' })}
+        />
+      );
 
     case 'everyone-ready':
       return <EveryoneReady onStartClues={() => dispatch({ type: 'GO_TO', screen: 'clue-phase' })} />;
@@ -152,6 +159,7 @@ function App() {
           players={state.players}
           imposterId={state.imposterId!}
           secretWord={state.secretWord!}
+          secretWordEmoji={state.secretWordEmoji!}
           votes={state.votes}
           roundResult={state.roundResult!}
           onPlayAgain={() => dispatch({ type: 'PLAY_AGAIN', round: createRound(state.players, state.usedWords) })}

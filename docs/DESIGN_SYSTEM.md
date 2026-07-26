@@ -254,6 +254,18 @@ label + count, e.g. "3/5") — the fetch that would show that row's exact
 text was one level deeper than what got captured. Re-check this specific
 row against Figma once the rate limit clears.
 
+**Addition — Picture Mode (emoji on word/category reveals)**: not a
+Figma mapping — a project-owner-directed feature so the game is
+playable by kids who can't read yet. Rather than a separate opt-in
+mode, every player always sees an emoji alongside the word (on
+`word-reveal-normal` and `final-result`) or category (on
+`imposter-reveal`'s hint pill), all the time. `wordBank.ts`'s
+`WordEntry` carries `emoji` and `categoryEmoji` alongside `word` and
+`category`, threaded through `RoundSetup` → `AppState` exactly like the
+category hint before it. The emoji is real content, not decoration —
+rendered without `aria-hidden`, unlike the purely decorative 📱 icon on
+the pass-phone screens.
+
 ## Not yet mapped
 
 `01 — Foundations` and `03 — States` canvases were confirmed (by

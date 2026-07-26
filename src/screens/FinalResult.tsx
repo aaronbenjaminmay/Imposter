@@ -8,6 +8,7 @@ type FinalResultProps = {
   players: Player[];
   imposterId: string;
   secretWord: string;
+  secretWordEmoji: string;
   votes: Vote[];
   roundResult: RoundResult;
   onPlayAgain: () => void;
@@ -34,6 +35,7 @@ export function FinalResult({
   players,
   imposterId,
   secretWord,
+  secretWordEmoji,
   votes,
   roundResult,
   onPlayAgain,
@@ -47,6 +49,7 @@ export function FinalResult({
       <div className={styles.topSection}>
         <div className={styles.headline}>
           <p className={styles.wordLabel}>The word was</p>
+          <p className={styles.emoji}>{secretWordEmoji}</p>
           <p className={styles.word}>{secretWord}</p>
           <p className={styles.outcome}>{playersWin ? 'Players Win' : 'Imposter Wins'}</p>
         </div>

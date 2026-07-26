@@ -81,12 +81,32 @@ exactly one clue.
 
 `src/game/wordBank.ts` holds the word pool, organized into categories
 (food, animals, places, occupations, objects, entertainment, nature,
-technology, sports & games, holidays). Categories aren't just for
-organizing the list — the Imposter's reveal screen shows the category
-of the drawn word as a hint (see "Imposter privacy" above), so every
-word must belong to exactly one category. A word (and its category) is
-drawn at random each round, excluding words already used earlier in the
-same session, so repeat "Play Again" rounds stay varied.
+technology, sports & games, holidays), 20 words each, 200 total.
+Categories aren't just for organizing the list — the Imposter's reveal
+screen shows the category of the drawn word as a hint (see "Imposter
+privacy" above). A word (and its category) is drawn at random each
+round, excluding words already used earlier in the same session, so
+repeat "Play Again" rounds stay varied.
+
+**Picture Mode (always on, not a separate toggle)**: every word carries
+its own emoji, shown next to the word on the reveal and final-result
+screens; every category carries a representative emoji too, shown next
+to the Imposter's category hint. This is a deliberate project-owner
+decision so the game is playable by kids who can't read yet — the
+picture is real content, not decoration, and is always present alongside
+the text rather than replacing it. Because of this, every word in the
+bank needs a clean, unique-within-its-category emoji: several of the
+original 200 words were swapped out during this pass for different,
+similarly-themed words specifically because they had no good 1:1 emoji
+(obscure terms, abstract multi-word concepts) or collided with another
+word's emoji in the same category. Many of the replaced words were also
+just poor fits for young kids regardless of imagery (e.g. "Earthquake",
+"Housewarming", "Escape Room"), so this doubles as a kid-friendliness
+pass on the word list itself.
+
+When adding new words: give it its own emoji, distinct from every other
+word in the same category (a duplicate-emoji check is part of this
+feature's verification — see the PR/commit history for the check used).
 
 TODO: expand categories/word count over time; no fixed target size.
 

@@ -19,7 +19,9 @@ export type AppState = {
   players: Player[];
   imposterId: string | null;
   secretWord: string | null;
+  secretWordEmoji: string | null;
   secretWordCategory: string | null;
+  secretWordCategoryEmoji: string | null;
   usedWords: string[];
   currentPlayerIndex: number;
   currentClueIndex: number;
@@ -35,7 +37,9 @@ export const initialState: AppState = {
   players: [],
   imposterId: null,
   secretWord: null,
+  secretWordEmoji: null,
   secretWordCategory: null,
+  secretWordCategoryEmoji: null,
   usedWords: [],
   currentPlayerIndex: 0,
   currentClueIndex: 0,
@@ -90,7 +94,9 @@ export function gameReducer(state: AppState, action: GameAction): AppState {
         players: action.players,
         imposterId: round.imposterId,
         secretWord: round.secretWord,
+        secretWordEmoji: round.secretWordEmoji,
         secretWordCategory: round.secretWordCategory,
+        secretWordCategoryEmoji: round.secretWordCategoryEmoji,
         usedWords: [...state.usedWords, round.secretWord],
         currentPlayerIndex: 0,
         screen: 'pass-phone',
@@ -174,7 +180,9 @@ export function gameReducer(state: AppState, action: GameAction): AppState {
         ...state,
         imposterId: round.imposterId,
         secretWord: round.secretWord,
+        secretWordEmoji: round.secretWordEmoji,
         secretWordCategory: round.secretWordCategory,
+        secretWordCategoryEmoji: round.secretWordCategoryEmoji,
         usedWords: [...state.usedWords, round.secretWord],
         currentPlayerIndex: 0,
         currentClueIndex: 0,
