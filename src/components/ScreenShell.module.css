@@ -3,6 +3,9 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
-  min-height: 100svh;
+  /* Fills #root's height, which is 100svh on mobile and a fixed capped
+     card height on wider viewports (see global.css) — this shouldn't
+     hardcode a viewport unit itself. */
+  min-height: 100%;
   background: var(--color-background-canvas);
 }

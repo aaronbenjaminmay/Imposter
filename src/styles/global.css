@@ -7,8 +7,7 @@
 }
 
 html,
-body,
-#root {
+body {
   height: 100%;
 }
 
@@ -46,12 +45,38 @@ input {
 }
 
 /* Mobile-first: the primary target is a portrait phone viewport (~390px).
-   Figma hasn't specified tablet/desktop layouts yet — don't guess a
-   breakpoint treatment here; widen this per-screen against Figma once
-   that's defined (see CLAUDE.md "Responsive Rules"). */
+   Figma doesn't specify tablet/desktop screens — this is a deliberate
+   product call (not a Figma mapping): rather than stretch the mobile
+   layout edge-to-edge on a wide window, present it as a fixed-size
+   "phone" card, centered, on anything wider than a phone. This is a
+   pass-the-phone game — a giant full-bleed layout on a desktop monitor
+   would misrepresent the product. */
 #root {
+  height: 100svh;
   max-width: 480px;
   margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: var(--space-section-lg) 0;
+    /* Letterbox background, distinct from the card's canvas token so the
+       card reads as a contained object rather than the whole page. */
+    background: #000000;
+  }
+
+  #root {
+    width: 390px;
+    height: min(844px, calc(100vh - 64px));
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-modal);
+    overflow-y: auto;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

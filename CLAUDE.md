@@ -103,8 +103,16 @@ These are behavioral requirements, not styling — see
 Primary target: **mobile portrait** (~390px). Secondary: tablet/desktop.
 Don't just scale the mobile layout up indefinitely for larger
 viewports — follow Figma's actual component guidance for how (or
-whether) a screen adapts. When Figma hasn't specified desktop behavior,
-say so rather than guessing a treatment.
+whether) a screen adapts. When Figma hasn't specified desktop behavior
+for something new, say so rather than guessing a treatment.
+
+**Resolved (product decision, not from Figma)**: above 640px, the app
+renders as a fixed-size (390×844 max) centered card with a border,
+rounded corners, and shadow on a letterboxed background, instead of
+stretching edge-to-edge — this is a pass-the-phone game, and a
+full-bleed mobile layout on a desktop monitor would misrepresent it. See
+`src/styles/global.css`. Screen content itself doesn't need separate
+desktop layouts — it's the same mobile layout, just contained.
 
 ## Code quality rules
 
