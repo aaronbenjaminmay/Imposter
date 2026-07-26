@@ -1,0 +1,79 @@
+.topSection {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-component-lg);
+  /* Figma reserves this space for the Status Bar, which we don't render
+     (see docs/DESIGN_SYSTEM.md). Kept as breathing room instead of
+     collapsing to zero. */
+  padding-top: var(--space-component-md);
+}
+
+.stepsList {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Figma: 20px, off the documented spacing scale — rounded up to the
+     nearest token, same call as Home's bottom-section gap. */
+  gap: var(--space-component-xl);
+  padding-inline: var(--space-page-gutter);
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-component-lg);
+  padding: var(--card-padding);
+  background: var(--color-background-primary);
+  border-radius: var(--radius-card);
+}
+
+.numberBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-chip);
+  background: rgba(255, 59, 48, 0.13);
+  color: var(--color-action-primary);
+  font-family: var(--font-family-display);
+  font-size: var(--text-nav-title-size);
+  font-weight: var(--text-nav-title-weight);
+  line-height: var(--text-nav-title-line-height);
+}
+
+.stepText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-component-xs);
+}
+
+.stepTitle {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--text-label-lg-size);
+  font-weight: var(--text-label-lg-weight);
+  line-height: var(--text-label-lg-line-height);
+  color: var(--color-text-primary);
+}
+
+.stepDescription {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--text-caption-size);
+  font-weight: var(--text-caption-weight);
+  line-height: var(--text-caption-line-height);
+  color: var(--color-text-secondary);
+}
+
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-component-md);
+  padding: 0 var(--space-page-gutter) var(--space-section-lg);
+}

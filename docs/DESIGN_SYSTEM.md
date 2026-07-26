@@ -104,21 +104,20 @@ for an MVP.
 
 ## Components
 
-None of these are implemented in code yet — this table is the
-implementation checklist. Fill in the "Code component" column as each
-one is built, following its Figma variants/states exactly.
+This table is the implementation checklist for named Figma components.
+Status reflects what's actually built, not aspirational.
 
-| Figma component | Variants / states | Purpose | Code component (TODO) |
-|---|---|---|---|
-| Button | Primary, Secondary | Dominant CTA vs. supporting action | `components/Button.tsx` |
-| Text Input | Default, Focused, Filled | Player name entry, Imposter's word guess | `components/TextInput.tsx` |
-| Player Row | Default, Current, Completed, Pending | Clue-phase turn tracker | `components/PlayerRow.tsx` |
-| Vote Option | Default, Selected | Private vote selection (radio) | `components/VoteOption.tsx` |
-| Number Chip | Default, Selected | Player-count selector | `components/NumberChip.tsx` |
-| Player Chip | — | Removable name pill on player-names screen | `components/PlayerChip.tsx` |
-| Screen Header | — | Title + supporting text, reused across screens | `components/ScreenHeader.tsx` |
-| Pass Phone Prompt | — | The privacy-gate screen body | `components/PassPhonePrompt.tsx` |
-| Status Bar / Home Indicator | — | Phone-chrome decoration only, not product logic | Skip — not a real product component |
+| Figma component | Variants / states | Purpose | Code component | Status |
+|---|---|---|---|---|
+| Button | Primary, Secondary | Dominant CTA vs. supporting action | `components/Button.tsx` | ✅ |
+| Text Input | Default, Focused, Filled | Player name entry, Imposter's word guess | `components/TextInput.tsx` | TODO |
+| Player Row | Default, Current, Completed, Pending | Clue-phase turn tracker | `components/PlayerRow.tsx` | TODO |
+| Vote Option | Default, Selected | Private vote selection (radio) | `components/VoteOption.tsx` | TODO |
+| Number Chip | Default, Selected | Player-count selector | `components/NumberChip.tsx` | TODO |
+| Player Chip | — | Removable name pill on player-names screen | `components/PlayerChip.tsx` | TODO |
+| Screen Header | — | Title + supporting text, reused across screens | `components/ScreenHeader.tsx` | TODO |
+| Pass Phone Prompt | — | The privacy-gate screen body | `components/PassPhonePrompt.tsx` | TODO |
+| Status Bar / Home Indicator | — | Phone-chrome decoration only, not product logic | Skip — not a real product component | N/A |
 
 Props/variants should map to a discriminated union or string-literal
 prop (e.g. `variant: 'primary' | 'secondary'`), not booleans per state,
@@ -126,12 +125,24 @@ so invalid combinations are unrepresentable. TODO: finalize each
 component's prop shape when it's actually built, against the live
 Figma node (don't guess from this table alone).
 
+### Code-only components (not named Figma components)
+
+These aren't in the Components canvas as reusable components, but the
+same frame structure repeats verbatim across enough Core Flow screens
+that duplicating it per-screen would violate the "don't duplicate"
+rule. Extracted once actual repetition was confirmed, not speculatively.
+
+| Component | Figma pattern | Confirmed on |
+|---|---|---|
+| `components/ScreenShell.tsx` | Root frame template `EL-fe301294` (full-height column, space-between, `#08080A` fill) | All 18 Core Flow screens |
+| `components/NavHeader.tsx` | Recurring "screen-header" frame (back arrow + Nav Title, 56px) | how-to-play, player-count, player-names, clue-phase, vote-selection |
+
 ## Screens
 
 | Figma frame (`02 — Core Flow`) | Section | Code screen (TODO) |
 |---|---|---|
-| `home` | SETUP | `screens/Home.tsx` |
-| `how-to-play` | SETUP | `screens/HowToPlay.tsx` |
+| `home` | SETUP | `screens/Home.tsx` ✅ |
+| `how-to-play` | SETUP | `screens/HowToPlay.tsx` ✅ |
 | `player-count` | SETUP | `screens/PlayerCount.tsx` |
 | `player-names` | SETUP | `screens/PlayerNames.tsx` |
 | `pass-phone` | ROLE REVEAL | `screens/PassPhone.tsx` (shared with voting, see below) |
