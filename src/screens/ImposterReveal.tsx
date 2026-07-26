@@ -3,16 +3,23 @@ import { ScreenShell } from '../components/ScreenShell';
 import styles from './ImposterReveal.module.css';
 
 type ImposterRevealProps = {
+  category: string;
   onHideAndPass: () => void;
 };
 
 /**
  * Figma: "02 — Core Flow" > imposter-reveal (#2:211).
  * CRITICAL: the secret word must ABSOLUTELY NEVER appear on this screen
- * — this component doesn't even receive the word as a prop, so it's
- * structurally impossible to render it here by mistake.
+ * — this component receives a category label only, never the word
+ * itself, so it's structurally impossible to render the word here by
+ * mistake.
+ *
+ * Category hint: a project-owner-requested addition, not from Figma.
+ * Gives the Imposter a narrowed clue (e.g. "Food") without revealing the
+ * word, so they have a fighting chance to blend in. See docs/GAME_RULES.md
+ * "Imposter privacy".
  */
-export function ImposterReveal({ onHideAndPass }: ImposterRevealProps) {
+export function ImposterReveal({ category, onHideAndPass }: ImposterRevealProps) {
   return (
     <ScreenShell>
       <div className={styles.topSection}>
@@ -23,6 +30,9 @@ export function ImposterReveal({ onHideAndPass }: ImposterRevealProps) {
             <p className={styles.title}>IMPOSTER</p>
             <p className={styles.instructions}>
               {"You don't know the secret word.\nListen carefully to everyone's clues\nand try to blend in."}
+            </p>
+            <p className={styles.categoryHint}>
+              Category hint: <span className={styles.categoryValue}>{category}</span>
             </p>
           </div>
         </div>

@@ -229,20 +229,37 @@ export const WORD_CATEGORIES = {
 
 export type WordCategory = keyof typeof WORD_CATEGORIES;
 
-const ALL_WORDS: string[] = Object.values(WORD_CATEGORIES).flat();
+/** Display label for the Imposter's category hint — see docs/GAME_RULES.md "Imposter privacy". */
+const CATEGORY_LABELS: Record<WordCategory, string> = {
+  food: 'Food',
+  animals: 'Animals',
+  places: 'Places',
+  occupations: 'Occupations',
+  objects: 'Objects',
+  entertainment: 'Entertainment',
+  nature: 'Nature',
+  technology: 'Technology',
+  sportsAndGames: 'Sports & Games',
+  holidays: 'Holidays & Celebrations',
+};
+
+export type WordEntry = {
+  word: string;
+  category: string;
+};
+
+const ALL_WORDS: WordEntry[] = Object.entries(WORD_CATEGORIES).flatMap(([category, words]) =>
+  words.map((word) => ({ word, category: CATEGORY_LABELS[category as WordCategory] })),
+);
 
 /**
- * Picks a random secret word, optionally excluding words already used this
- * session so repeat games stay varied. Falls back to the full pool if every
- * word has been used.
+ * Picks a random secret word (with its display category), optionally
+ * excluding words already used this session so repeat games stay varied.
+ * Falls back to the full pool if every word has been used.
  */
-export function getRandomWord(excluding: readonly string[] = []): string {
+export function getRandomWordEntry(excluding: readonly string[] = []): WordEntry {
   const excludeSet = new Set(excluding);
-  const available = ALL_WORDS.filter((word) => !excludeSet.has(word));
+  const available = ALL_WORDS.filter((entry) => !excludeSet.has(entry.word));
   const pool = available.length > 0 ? available : ALL_WORDS;
   return pool[Math.floor(Math.random() * pool.length)];
-}
-
-export function getWordBankSize(): number {
-  return ALL_WORDS.length;
 }

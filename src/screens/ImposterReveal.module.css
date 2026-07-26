@@ -70,6 +70,24 @@
   color: var(--color-text-secondary);
 }
 
+.categoryHint {
+  align-self: center;
+  margin: 0;
+  padding: var(--space-component-sm) var(--space-component-lg);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-body-sm-weight);
+  line-height: var(--text-body-sm-line-height);
+  color: var(--color-text-secondary);
+}
+
+.categoryValue {
+  font-weight: var(--text-label-sm-weight);
+  color: var(--color-text-primary);
+}
+
 .bottomSection {
   display: flex;
   flex-direction: column;

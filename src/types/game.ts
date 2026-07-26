@@ -34,11 +34,3 @@ export type Vote = {
   voterId: string;
   votedForId: string;
 };
-
-export type GameState = {
-  screen: Screen;
-  players: Player[];
-  imposterId: string | null;
-  secretWord: string | null;
-  votes: Vote[];
-};

@@ -1,5 +1,6 @@
 import { useReducer } from 'react';
 import { gameReducer, initialState } from './game/gameReducer';
+import { createRound } from './game/roundSetup';
 import { CluePhase } from './screens/CluePhase';
 import { EveryoneReady } from './screens/EveryoneReady';
 import { FinalResult } from './screens/FinalResult';
@@ -51,7 +52,9 @@ function App() {
         <PlayerNames
           playerCount={state.playerCount}
           onBack={() => dispatch({ type: 'GO_TO', screen: 'player-count' })}
-          onContinue={(players) => dispatch({ type: 'START_ROUND', players })}
+          onContinue={(players) =>
+            dispatch({ type: 'START_ROUND', players, round: createRound(players, state.usedWords) })
+          }
         />
       );
 
@@ -72,7 +75,13 @@ function App() {
       );
 
     case 'imposter-reveal':
-      return <ImposterReveal onHideAndPass={() => dispatch({ type: 'HIDE_AND_PASS' })} />;
+      // secretWordCategory is always set by START_ROUND before this screen is reachable.
+      return (
+        <ImposterReveal
+          category={state.secretWordCategory!}
+          onHideAndPass={() => dispatch({ type: 'HIDE_AND_PASS' })}
+        />
+      );
 
     case 'word-reveal-normal':
       // secretWord is always set by START_ROUND before this screen is reachable.
@@ -145,7 +154,7 @@ function App() {
           secretWord={state.secretWord!}
           votes={state.votes}
           roundResult={state.roundResult!}
-          onPlayAgain={() => dispatch({ type: 'PLAY_AGAIN' })}
+          onPlayAgain={() => dispatch({ type: 'PLAY_AGAIN', round: createRound(state.players, state.usedWords) })}
           onNewGame={() => dispatch({ type: 'NEW_GAME' })}
         />
       );

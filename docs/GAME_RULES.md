@@ -34,7 +34,12 @@ accounts, and nothing is shared between devices.
   their own reveal moment, and to everyone on the final result screen.
   Never visible during clue-giving, voting, or the Imposter's guess.
 - **Imposter privacy**: the Imposter learns they are the Imposter but
-  never sees the secret word before the final result.
+  never sees the secret word before the final result. They do see a
+  **category hint** (e.g. "Food") on their reveal screen — a deliberate
+  balance decision (project owner call, not from Figma) that narrows the
+  word without revealing it, giving the Imposter a fighting chance to
+  blend in. The word bank's categories (`src/game/wordBank.ts`) exist
+  specifically to support this.
 - **Voting privacy**: each vote is cast privately; a player must never
   see another player's vote before locking in their own, and the
   vote-locked confirmation screen must not leak the vote to the next
@@ -76,11 +81,12 @@ exactly one clue.
 
 `src/game/wordBank.ts` holds the word pool, organized into categories
 (food, animals, places, occupations, objects, entertainment, nature,
-technology, sports & games, holidays) purely to keep the list easy to
-maintain — categories are never shown to players and don't affect
-gameplay. A word is drawn at random from the full pool each round,
-excluding words already used earlier in the same session, so repeat
-"Play Again" rounds stay varied.
+technology, sports & games, holidays). Categories aren't just for
+organizing the list — the Imposter's reveal screen shows the category
+of the drawn word as a hint (see "Imposter privacy" above), so every
+word must belong to exactly one category. A word (and its category) is
+drawn at random each round, excluding words already used earlier in the
+same session, so repeat "Play Again" rounds stay varied.
 
 TODO: expand categories/word count over time; no fixed target size.
 

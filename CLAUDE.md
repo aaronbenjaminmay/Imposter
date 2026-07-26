@@ -73,7 +73,8 @@ These are behavioral requirements, not styling — see
 - Secret word is visible only during a normal player's own reveal and
   on the final result screen — never during clues, voting, or the
   Imposter's guess.
-- The Imposter never sees the secret word before the final reveal.
+- The Imposter never sees the secret word before the final reveal, but
+  does see a category hint (e.g. "Food") on their reveal screen.
 - Votes are private; no player sees another's vote before locking in
   their own; the vote-locked screen must not leak the previous vote.
 - All votes stay hidden until everyone has voted, then reveal together.

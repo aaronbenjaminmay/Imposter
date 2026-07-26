@@ -1,4 +1,4 @@
-import { createRound } from './roundSetup';
+import type { RoundSetup } from './roundSetup';
 import type { Player, Screen, Vote } from '../types/game';
 
 export type RoundResult = {
@@ -19,6 +19,7 @@ export type AppState = {
   players: Player[];
   imposterId: string | null;
   secretWord: string | null;
+  secretWordCategory: string | null;
   usedWords: string[];
   currentPlayerIndex: number;
   currentClueIndex: number;
@@ -34,6 +35,7 @@ export const initialState: AppState = {
   players: [],
   imposterId: null,
   secretWord: null,
+  secretWordCategory: null,
   usedWords: [],
   currentPlayerIndex: 0,
   currentClueIndex: 0,
@@ -46,7 +48,7 @@ export const initialState: AppState = {
 export type GameAction =
   | { type: 'GO_TO'; screen: Screen }
   | { type: 'SET_PLAYER_COUNT'; count: number }
-  | { type: 'START_ROUND'; players: Player[] }
+  | { type: 'START_ROUND'; players: Player[]; round: RoundSetup }
   | { type: 'REVEAL_ROLE' }
   | { type: 'HIDE_AND_PASS' }
   | { type: 'NEXT_CLUE_PLAYER' }
@@ -57,7 +59,7 @@ export type GameAction =
   | { type: 'VOTE_AGAIN' }
   | { type: 'CONTINUE_AFTER_VOTE_REVEAL' }
   | { type: 'SUBMIT_IMPOSTER_GUESS'; guess: string }
-  | { type: 'PLAY_AGAIN' }
+  | { type: 'PLAY_AGAIN'; round: RoundSetup }
   | { type: 'NEW_GAME' };
 
 /** Ties are never broken randomly — see docs/GAME_RULES.md "Voting -> result flow". */
@@ -82,12 +84,13 @@ export function gameReducer(state: AppState, action: GameAction): AppState {
       return { ...state, playerCount: action.count, screen: 'player-names' };
 
     case 'START_ROUND': {
-      const round = createRound(action.players, state.usedWords);
+      const { round } = action;
       return {
         ...state,
         players: action.players,
         imposterId: round.imposterId,
         secretWord: round.secretWord,
+        secretWordCategory: round.secretWordCategory,
         usedWords: [...state.usedWords, round.secretWord],
         currentPlayerIndex: 0,
         screen: 'pass-phone',
@@ -166,11 +169,12 @@ export function gameReducer(state: AppState, action: GameAction): AppState {
     }
 
     case 'PLAY_AGAIN': {
-      const round = createRound(state.players, state.usedWords);
+      const { round } = action;
       return {
         ...state,
         imposterId: round.imposterId,
         secretWord: round.secretWord,
+        secretWordCategory: round.secretWordCategory,
         usedWords: [...state.usedWords, round.secretWord],
         currentPlayerIndex: 0,
         currentClueIndex: 0,
