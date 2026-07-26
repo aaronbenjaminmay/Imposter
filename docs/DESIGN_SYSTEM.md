@@ -114,7 +114,7 @@ Status reflects what's actually built, not aspirational.
 | Player Row | Default, Current, Completed, Pending | Clue-phase turn tracker | `components/PlayerRow.tsx` | TODO |
 | Vote Option | Default, Selected | Private vote selection (radio) | `components/VoteOption.tsx` | TODO |
 | Number Chip | Default, Selected | Player-count selector | `components/NumberChip.tsx` | ✅ |
-| Player Chip | — | Removable name pill on player-names screen | `components/PlayerChip.tsx` | TODO |
+| Player Chip | — | Removable name pill on player-names screen | `components/PlayerChip.tsx` | ✅ |
 | Screen Header | — | Title + supporting text, reused across screens | `components/ScreenHeader.tsx` | TODO |
 | Pass Phone Prompt | — | The privacy-gate screen body | `components/PassPhonePrompt.tsx` | TODO |
 | Status Bar / Home Indicator | — | Phone-chrome decoration only, not product logic | Skip — not a real product component | N/A |
@@ -144,7 +144,7 @@ rule. Extracted once actual repetition was confirmed, not speculatively.
 | `home` | SETUP | `screens/Home.tsx` ✅ |
 | `how-to-play` | SETUP | `screens/HowToPlay.tsx` ✅ |
 | `player-count` | SETUP | `screens/PlayerCount.tsx` ✅ |
-| `player-names` | SETUP | `screens/PlayerNames.tsx` |
+| `player-names` | SETUP | `screens/PlayerNames.tsx` ✅ |
 | `pass-phone` | ROLE REVEAL | `screens/PassPhone.tsx` (shared with voting, see below) |
 | `tap-to-reveal` | ROLE REVEAL | `screens/TapToReveal.tsx` |
 | `word-reveal-normal` | ROLE REVEAL | `screens/WordReveal.tsx` |
@@ -199,6 +199,24 @@ count to know how many name fields to collect on `player-names`. Added
 a `TextInput` below the chip grid, shown only when "10+" is selected,
 asking for the exact count (min 10). This is our own addition, not a
 Figma mapping — flag if a future Figma update adds a real mock for it.
+
+**Addition — new background token from Player Chip**: the Player Chip
+component (9:60) fills with `#202028`, a third distinct value beyond
+`background/primary` (#121216) and `background/secondary` (#18181E).
+Added as `--color-background-tertiary` rather than rounding to a nearby
+existing token, since Figma specifies it as its own value.
+
+**Caveat — player-names built partly from cached data**: the Figma REST
+API hit its per-seat rate limit (viewer/collaborator tier, multi-day
+cooldown) while this screen was being built. Layout, the Text Input and
+Player Chip component specs, and this screen's full behavior spec (from
+the AI Implementation Guide's "PLAYER NAMES" doc) were already captured
+from an earlier full fetch of the Core Flow canvas, so the screen itself
+should be accurate. The one thing not independently re-verified: the
+exact copy on the `list-header` row above the chip grid (a "Players"
+label + count, e.g. "3/5") — the fetch that would show that row's exact
+text was one level deeper than what got captured. Re-check this specific
+row against Figma once the rate limit clears.
 
 ## Not yet mapped
 

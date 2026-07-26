@@ -1,4 +1,4 @@
-import { useId, type InputHTMLAttributes } from 'react';
+import { forwardRef, useId, type InputHTMLAttributes } from 'react';
 import styles from './TextInput.module.css';
 
 type TextInputProps = {
@@ -12,15 +12,20 @@ type TextInputProps = {
  * states map to plain HTML/CSS here: Default vs. Filled is just
  * "has a value or not," which `::placeholder` already handles, and
  * Focused is the native `:focus-visible` style — no manual state needed.
+ * Forwards its ref to the underlying <input> so screens can refocus it
+ * (player-names needs this: "Focus returns to input after adding").
  */
-export function TextInput({ label, ...rest }: TextInputProps) {
+export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
+  { label, ...rest },
+  ref,
+) {
   const id = useId();
   return (
     <div className={styles.wrapper}>
       <label className={styles.label} htmlFor={id}>
         {label}
       </label>
-      <input id={id} className={styles.input} {...rest} />
+      <input id={id} ref={ref} className={styles.input} {...rest} />
     </div>
   );
-}
+});
