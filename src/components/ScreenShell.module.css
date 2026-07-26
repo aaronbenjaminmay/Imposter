@@ -1,0 +1,8 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  min-height: 100svh;
+  background: var(--color-background-canvas);
+}

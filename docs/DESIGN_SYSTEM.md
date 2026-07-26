@@ -16,6 +16,7 @@ primitives or hardcoded values. See CLAUDE.md's Design System Rules.
 | `color/background/primary` | `#121216` | `--color-background-primary` |
 | `color/background/secondary` | `#18181E` | `--color-background-secondary` |
 | `color/background/inverse` | `#FFFFFF` | `--color-background-inverse` |
+| _(unnamed — see note below)_ | `#08080A` | `--color-background-canvas` |
 | `color/text/primary` | `#FFFFFF` | `--color-text-primary` |
 | `color/text/secondary` | `#A1A1AA` | `--color-text-secondary` |
 | `color/text/tertiary` | `#52525B` | `--color-text-tertiary` |
@@ -28,6 +29,17 @@ primitives or hardcoded values. See CLAUDE.md's Design System Rules.
 | `color/game/imposter` | `#FF3B30` | `--color-game-imposter` |
 | `color/game/word` | `#FFFFFF` | `--color-game-word` |
 | `color/border/default` | `#52525B` | `--color-border-default` |
+
+**Discrepancy — screen background color**: the Design System canvas swatch
+labels `#121216` as `background/primary`, "Main app background." But every
+screen frame in "02 — Core Flow" (all 18, via the shared `EL-fe301294`
+template) actually fills with `#08080A`; `#121216` only shows up on
+elevated cards/rows *within* a screen (how-to-play step rows, the
+final-result summary card, the giant tap-to-reveal circle). Resolved by
+adding `--color-background-canvas` (`#08080A`) for the true outer screen
+background and keeping `--color-background-primary` (`#121216`) for
+elevated surfaces — matching actual screen usage over the swatch label.
+Flagging in case the swatch label is what's actually stale.
 
 `color/border/default` is referenced throughout the component docs but
 wasn't swatched as its own token frame in Figma — its value was inferred
@@ -149,6 +161,24 @@ separate.
 See `docs/GAME_RULES.md` for the full state-progression diagram — it's
 the same content, framed around behavior rather than the Figma→code
 table.
+
+**Discrepancy — "How to Play" / secondary-action styling**: the AI
+Implementation Guide's Secondary Button doc explicitly pairs it with
+"How to Play" (alongside "Start Game") and "New Game" (alongside "Play
+Again"). But the actual mockups don't follow that: Home's "How to Play"
+renders as a plain muted text link (Text/Body SM, no border, no pill),
+and final-result's "New Game" button instance uses the *Primary*
+component, not Secondary. Resolved by following each screen's literal
+mockup rather than the guide's generalized pairing description when they
+conflict — the concrete screen is more specific evidence than the
+general pattern text. Applies going forward to any screen where this
+comes up again, not just Home.
+
+**Discrepancy — off-scale spacing**: Home's `bottom-section` uses a
+`20px` gap in Figma, which isn't on the documented spacing scale
+(4/8/12/16/24/32). Rounded up to `--space-component-xl` (24px) rather
+than hardcoding `20px`, per the "no arbitrary spacing values" rule —
+even though the arbitrary value originates in Figma itself here.
 
 ## Not yet mapped
 

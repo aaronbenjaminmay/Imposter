@@ -1,0 +1,90 @@
+.topSection {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Figma reserves this space for the Status Bar, which we don't render
+     (see docs/DESIGN_SYSTEM.md — decorative phone chrome, not a product
+     component). Kept as breathing room instead of collapsing to zero. */
+  padding-top: var(--space-section-md);
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 450px;
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: var(--color-action-primary);
+  filter: blur(40px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.titleWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-component-lg);
+  padding-inline: var(--space-section-lg);
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-family-display);
+  font-size: var(--text-heading-xl-size);
+  font-weight: var(--text-heading-xl-weight);
+  line-height: var(--text-heading-xl-line-height);
+  letter-spacing: var(--text-heading-xl-tracking);
+  color: var(--color-text-primary);
+}
+
+.tagline {
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-md-size);
+  font-weight: var(--text-body-md-weight);
+  line-height: var(--text-body-md-line-height);
+  color: var(--color-text-secondary);
+}
+
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Figma: 20px, off the documented spacing scale — rounded up to the
+     nearest token. See docs/DESIGN_SYSTEM.md. */
+  gap: var(--space-component-xl);
+  padding: 0 var(--space-section-lg) var(--space-section-lg);
+}
+
+.howToPlayLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  background: none;
+  border: none;
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--text-body-sm-weight);
+  line-height: var(--text-body-sm-line-height);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.howToPlayLink:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}

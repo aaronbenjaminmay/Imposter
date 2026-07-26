@@ -1,15 +1,11 @@
-import './App.css';
+import { Home } from './screens/Home';
 
 function App() {
   return (
-    <main className="scaffold-placeholder">
-      <h1 className="scaffold-title">Imposter</h1>
-      <p className="scaffold-caption">
-        Party word game — project scaffold ready.
-        <br />
-        Screens are implemented next, screen by screen, against Figma.
-      </p>
-    </main>
+    <Home
+      onStartGame={() => console.log('Start Game — player-count screen not implemented yet')}
+      onHowToPlay={() => console.log('How to Play — screen not implemented yet')}
+    />
   );
 }
 

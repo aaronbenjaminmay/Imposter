@@ -13,6 +13,15 @@
   --color-background-secondary: #18181e;
   --color-background-inverse: #ffffff;
 
+  /*
+    Not a token from the Design System canvas swatches — added to match
+    actual usage. Every screen frame in "02 — Core Flow" fills with
+    #08080A (not #121216 as the background/primary swatch implies);
+    #121216 only appears on elevated cards/rows within a screen. See
+    docs/DESIGN_SYSTEM.md "Not yet mapped" section for the discrepancy.
+  */
+  --color-background-canvas: #08080a;
+
   /* color/text/* */
   --color-text-primary: #ffffff;
   --color-text-secondary: #a1a1aa;
