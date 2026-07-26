@@ -166,14 +166,13 @@ doc) — **resolved**: one shared `PassPhone.tsx` covers both, taking an
 optional `subtitle` prop for voting's extra "Make your vote privately."
 line, which is the only difference between the two Figma frames.
 
-**Assumption — tap-to-reveal's giant circle**: the circle element
-(#2:185) had no children in the captured fetch. Confirmed via project
-owner screenshot that it holds a fingerprint/scan icon — still
-decorative, not a second tap target ("Reveal My Role" remains the only
-actionable control). Implemented as a hand-built stroke icon (simple
-nested arcs), not an exact vector match, since the real Figma asset
-isn't reachable while the REST API is rate-limited. Re-check against the
-actual icon (or export it directly) once API access is available.
+**Resolved — tap-to-reveal's giant circle**: the circle element (#2:185)
+holds a fingerprint/scan icon, confirmed via project owner screenshot.
+Uses the real exported asset (`public/fingerprint.svg`, provided
+directly rather than fetched via the still-rate-limited REST API) —
+hardcoded `#FF3B30` stroke, matching `--color-action-primary` exactly.
+Still decorative (`aria-hidden`), not a second tap target — "Reveal My
+Role" remains the only actionable control.
 
 **Convention — uppercase display text**: several screens author their
 dramatic text content in literal caps in Figma ("YOUR WORD IS", "YOU ARE
