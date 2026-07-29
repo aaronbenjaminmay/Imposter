@@ -5,16 +5,25 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Imposter — a pass-the-phone party word game." />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#08080A" />
     <!-- Home-screen install behavior. iOS Safari only reads the apple- prefixed
          tag; Chrome/Android deprecated it in favor of the unprefixed one, so
-         both are included. -->
+         both are included.
+         status-bar-style is "black" (opaque), not "black-translucent" —
+         translucent makes iOS render the app under the status bar (an
+         edge-to-edge overlay), which needs safe-area-inset padding this app
+         doesn't have. Every screen's own top padding already assumes the OS
+         reserves that space (see e.g. Home.module.css's .topSection comment),
+         so "black" keeps that assumption true instead of fighting it — and
+         reads as solid black anyway, close enough to the app's #08080A
+         canvas to be seamless. Also dropped viewport-fit=cover, which only
+         matters when going edge-to-edge. -->
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="Imposter" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
